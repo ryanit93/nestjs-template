@@ -23,9 +23,12 @@ export class PassengerController {
     @Get()
     @ApiOperation({ summary: 'Find passengers' })
     @ApiResponse({ status: HttpStatus.OK, isArray: true, type: PassengerData })
-    public async find(): Promise<PassengerData[]> {
-
-        return this.passengerService.find();
+    public async find(): Promise<{status: number, data: PassengerData[]}> { 
+        const data = await this.passengerService.find();
+        return {
+            status:  HttpStatus.OK,
+            data
+        }
     }
 
     @Post()
